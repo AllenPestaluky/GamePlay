@@ -168,7 +168,7 @@ copy gameplay-template\gameplay-template.vcxproj.filters %projPath%\%projName%.v
 call:replace %projPath%\%projName%.vcxproj.filters TemplateGame "%className%"
 
 copy gameplay-template\gameplay-template.vcxproj.props %projPath%\%projName%.vcxproj.props
-call:replace %projPath%\%projName%.vcxproj.props TemplateGame "%className%"
+call:replace %projPath%\%projName%.vcxproj.props TEMPLATE_PROJECT "%projName%"
 call:replace %projPath%\%projName%.vcxproj.props GAMEPLAY_PATH "%gpPath%"
 
 copy gameplay-template\gameplay-template.vcxproj.user %projPath%\%projName%.vcxproj.user

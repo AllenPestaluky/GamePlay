@@ -169,7 +169,7 @@ cp "gameplay-template/gameplay-template.vcxproj.filters" "$projPath/$projName.vc
 sed -i "" "s*TemplateGame*$className*g" "$projPath/$projName.vcxproj.filters"
 
 cp "gameplay-template/gameplay-template.vcxproj.props" "$projPath/$projName.vcxproj.props"
-sed -i "" "s*TemplateGame*$className*g" "$projPath/$projName.vcxproj.props"
+sed -i "" "s*TEMPLATE_PROJECT*$projName*g" "$projPath/$projName.vcxproj.props"
 sed -i "" "s*GAMEPLAY_PATH*$gpPath*g" "$projPath/$projName.vcxproj.props"
 
 cp "gameplay-template/gameplay-template.vcxproj.user" "$projPath/$projName.vcxproj.user"
