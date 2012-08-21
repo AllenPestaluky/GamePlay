@@ -5,7 +5,7 @@
     <GameplayPath>GAMEPLAY_PATH</GameplayPath>
   </PropertyGroup>
   <PropertyGroup>
-    <_PropertySheetDisplayName>gameplay-template Properties</_PropertySheetDisplayName>
+    <_PropertySheetDisplayName>TemplateGame Properties</_PropertySheetDisplayName>
   </PropertyGroup>
   <ItemDefinitionGroup />
   <ItemGroup>

@@ -162,13 +162,15 @@ REM Copy Microsoft Visual Studio project files
 copy gameplay-template\gameplay-template.vcxproj %projPath%\%projName%.vcxproj
 call:replace %projPath%\%projName%.vcxproj TEMPLATE_PROJECT "%projName%"
 call:replace %projPath%\%projName%.vcxproj TemplateGame "%className%"
-call:replace %projPath%\%projName%.vcxproj GAMEPLAY_PATH "%gpPath%"
+call:replace %projPath%\%projName%.vcxproj gameplay-template.vcxproj.props "%projName%.vcxproj.props"
 
 copy gameplay-template\gameplay-template.vcxproj.filters %projPath%\%projName%.vcxproj.filters
 call:replace %projPath%\%projName%.vcxproj.filters TemplateGame "%className%"
 
+copy gameplay-template\gameplay-template.vcxproj.props %projPath%\%projName%.vcxproj.props
+call:replace %projPath%\%projName%.vcxproj.props TemplateGame "%className%"
+
 copy gameplay-template\gameplay-template.vcxproj.user %projPath%\%projName%.vcxproj.user
-call:replace %projPath%\%projName%.vcxproj.user GAMEPLAY_PATH "%gpPath%"
 
 REM Copy Apple XCode project files
 mkdir %projPath%\%projName%.xcodeproj
