@@ -11,6 +11,7 @@
 #include "lua_GameClearFlags.h"
 #include "lua_GameState.h"
 #include "lua_GamepadGamepadEvent.h"
+#include "lua_GestureGestureEvent.h"
 #include "lua_KeyboardKeyEvent.h"
 #include "lua_MouseMouseEvent.h"
 #include "lua_TouchTouchEvent.h"
@@ -27,6 +28,11 @@ void luaRegister_Game()
         {"exit", lua_Game_exit},
         {"frame", lua_Game_frame},
         {"gamepadEvent", lua_Game_gamepadEvent},
+        {"gesturePinchEvent", lua_Game_gesturePinchEvent},
+        {"gestureRotateEvent", lua_Game_gestureRotateEvent},
+        {"gestureSwipeEvent", lua_Game_gestureSwipeEvent},
+        {"gestureTapDoubleEvent", lua_Game_gestureTapDoubleEvent},
+        {"gestureTapEvent", lua_Game_gestureTapEvent},
         {"getAIController", lua_Game_getAIController},
         {"getAccelerometerValues", lua_Game_getAccelerometerValues},
         {"getAnimationController", lua_Game_getAnimationController},
@@ -52,6 +58,7 @@ void luaRegister_Game()
         {"menuEvent", lua_Game_menuEvent},
         {"mouseEvent", lua_Game_mouseEvent},
         {"pause", lua_Game_pause},
+        {"recognizeGesture", lua_Game_recognizeGesture},
         {"resume", lua_Game_resume},
         {"run", lua_Game_run},
         {"schedule", lua_Game_schedule},
@@ -143,7 +150,7 @@ int lua_Game_clear(lua_State* state)
                 Game::ClearFlags param1 = (Game::ClearFlags)lua_enumFromString_GameClearFlags(luaL_checkstring(state, 2));
 
                 // Get parameter 2 off the stack.
-                Vector4* param2 = ScriptUtil::getObjectPointer<Vector4>(3, "Vector4", true);
+                ScriptUtil::LuaArray<Vector4> param2 = ScriptUtil::getObjectPointer<Vector4>(3, "Vector4", true);
 
                 // Get parameter 3 off the stack.
                 float param3 = (float)luaL_checknumber(state, 4);
@@ -341,7 +348,7 @@ int lua_Game_gamepadEvent(lua_State* state)
                 Gamepad::GamepadEvent param1 = (Gamepad::GamepadEvent)lua_enumFromString_GamepadGamepadEvent(luaL_checkstring(state, 2));
 
                 // Get parameter 2 off the stack.
-                Gamepad* param2 = ScriptUtil::getObjectPointer<Gamepad>(3, "Gamepad", false);
+                ScriptUtil::LuaArray<Gamepad> param2 = ScriptUtil::getObjectPointer<Gamepad>(3, "Gamepad", false);
 
                 Game* instance = getInstance(state);
                 instance->gamepadEvent(param1, param2);
@@ -351,6 +358,228 @@ int lua_Game_gamepadEvent(lua_State* state)
             else
             {
                 lua_pushstring(state, "lua_Game_gamepadEvent - Failed to match the given parameters to a valid function signature.");
+                lua_error(state);
+            }
+            break;
+        }
+        default:
+        {
+            lua_pushstring(state, "Invalid number of parameters (expected 3).");
+            lua_error(state);
+            break;
+        }
+    }
+    return 0;
+}
+
+int lua_Game_gesturePinchEvent(lua_State* state)
+{
+    // Get the number of parameters.
+    int paramCount = lua_gettop(state);
+
+    // Attempt to match the parameters to a valid binding.
+    switch (paramCount)
+    {
+        case 4:
+        {
+            if ((lua_type(state, 1) == LUA_TUSERDATA) &&
+                lua_type(state, 2) == LUA_TNUMBER &&
+                lua_type(state, 3) == LUA_TNUMBER &&
+                lua_type(state, 4) == LUA_TNUMBER)
+            {
+                // Get parameter 1 off the stack.
+                int param1 = (int)luaL_checkint(state, 2);
+
+                // Get parameter 2 off the stack.
+                int param2 = (int)luaL_checkint(state, 3);
+
+                // Get parameter 3 off the stack.
+                float param3 = (float)luaL_checknumber(state, 4);
+
+                Game* instance = getInstance(state);
+                instance->gesturePinchEvent(param1, param2, param3);
+                
+                return 0;
+            }
+            else
+            {
+                lua_pushstring(state, "lua_Game_gesturePinchEvent - Failed to match the given parameters to a valid function signature.");
+                lua_error(state);
+            }
+            break;
+        }
+        default:
+        {
+            lua_pushstring(state, "Invalid number of parameters (expected 4).");
+            lua_error(state);
+            break;
+        }
+    }
+    return 0;
+}
+
+int lua_Game_gestureRotateEvent(lua_State* state)
+{
+    // Get the number of parameters.
+    int paramCount = lua_gettop(state);
+
+    // Attempt to match the parameters to a valid binding.
+    switch (paramCount)
+    {
+        case 4:
+        {
+            if ((lua_type(state, 1) == LUA_TUSERDATA) &&
+                lua_type(state, 2) == LUA_TNUMBER &&
+                lua_type(state, 3) == LUA_TNUMBER &&
+                lua_type(state, 4) == LUA_TNUMBER)
+            {
+                // Get parameter 1 off the stack.
+                int param1 = (int)luaL_checkint(state, 2);
+
+                // Get parameter 2 off the stack.
+                int param2 = (int)luaL_checkint(state, 3);
+
+                // Get parameter 3 off the stack.
+                float param3 = (float)luaL_checknumber(state, 4);
+
+                Game* instance = getInstance(state);
+                instance->gestureRotateEvent(param1, param2, param3);
+                
+                return 0;
+            }
+            else
+            {
+                lua_pushstring(state, "lua_Game_gestureRotateEvent - Failed to match the given parameters to a valid function signature.");
+                lua_error(state);
+            }
+            break;
+        }
+        default:
+        {
+            lua_pushstring(state, "Invalid number of parameters (expected 4).");
+            lua_error(state);
+            break;
+        }
+    }
+    return 0;
+}
+
+int lua_Game_gestureSwipeEvent(lua_State* state)
+{
+    // Get the number of parameters.
+    int paramCount = lua_gettop(state);
+
+    // Attempt to match the parameters to a valid binding.
+    switch (paramCount)
+    {
+        case 4:
+        {
+            if ((lua_type(state, 1) == LUA_TUSERDATA) &&
+                lua_type(state, 2) == LUA_TNUMBER &&
+                lua_type(state, 3) == LUA_TNUMBER &&
+                lua_type(state, 4) == LUA_TNUMBER)
+            {
+                // Get parameter 1 off the stack.
+                int param1 = (int)luaL_checkint(state, 2);
+
+                // Get parameter 2 off the stack.
+                int param2 = (int)luaL_checkint(state, 3);
+
+                // Get parameter 3 off the stack.
+                int param3 = (int)luaL_checkint(state, 4);
+
+                Game* instance = getInstance(state);
+                instance->gestureSwipeEvent(param1, param2, param3);
+                
+                return 0;
+            }
+            else
+            {
+                lua_pushstring(state, "lua_Game_gestureSwipeEvent - Failed to match the given parameters to a valid function signature.");
+                lua_error(state);
+            }
+            break;
+        }
+        default:
+        {
+            lua_pushstring(state, "Invalid number of parameters (expected 4).");
+            lua_error(state);
+            break;
+        }
+    }
+    return 0;
+}
+
+int lua_Game_gestureTapDoubleEvent(lua_State* state)
+{
+    // Get the number of parameters.
+    int paramCount = lua_gettop(state);
+
+    // Attempt to match the parameters to a valid binding.
+    switch (paramCount)
+    {
+        case 3:
+        {
+            if ((lua_type(state, 1) == LUA_TUSERDATA) &&
+                lua_type(state, 2) == LUA_TNUMBER &&
+                lua_type(state, 3) == LUA_TNUMBER)
+            {
+                // Get parameter 1 off the stack.
+                int param1 = (int)luaL_checkint(state, 2);
+
+                // Get parameter 2 off the stack.
+                int param2 = (int)luaL_checkint(state, 3);
+
+                Game* instance = getInstance(state);
+                instance->gestureTapDoubleEvent(param1, param2);
+                
+                return 0;
+            }
+            else
+            {
+                lua_pushstring(state, "lua_Game_gestureTapDoubleEvent - Failed to match the given parameters to a valid function signature.");
+                lua_error(state);
+            }
+            break;
+        }
+        default:
+        {
+            lua_pushstring(state, "Invalid number of parameters (expected 3).");
+            lua_error(state);
+            break;
+        }
+    }
+    return 0;
+}
+
+int lua_Game_gestureTapEvent(lua_State* state)
+{
+    // Get the number of parameters.
+    int paramCount = lua_gettop(state);
+
+    // Attempt to match the parameters to a valid binding.
+    switch (paramCount)
+    {
+        case 3:
+        {
+            if ((lua_type(state, 1) == LUA_TUSERDATA) &&
+                lua_type(state, 2) == LUA_TNUMBER &&
+                lua_type(state, 3) == LUA_TNUMBER)
+            {
+                // Get parameter 1 off the stack.
+                int param1 = (int)luaL_checkint(state, 2);
+
+                // Get parameter 2 off the stack.
+                int param2 = (int)luaL_checkint(state, 3);
+
+                Game* instance = getInstance(state);
+                instance->gestureTapEvent(param1, param2);
+                
+                return 0;
+            }
+            else
+            {
+                lua_pushstring(state, "lua_Game_gestureTapEvent - Failed to match the given parameters to a valid function signature.");
                 lua_error(state);
             }
             break;
@@ -426,10 +655,10 @@ int lua_Game_getAccelerometerValues(lua_State* state)
                 (lua_type(state, 3) == LUA_TTABLE || lua_type(state, 3) == LUA_TLIGHTUSERDATA))
             {
                 // Get parameter 1 off the stack.
-                float* param1 = ScriptUtil::getFloatPointer(2);
+                ScriptUtil::LuaArray<float> param1 = ScriptUtil::getFloatPointer(2);
 
                 // Get parameter 2 off the stack.
-                float* param2 = ScriptUtil::getFloatPointer(3);
+                ScriptUtil::LuaArray<float> param2 = ScriptUtil::getFloatPointer(3);
 
                 Game* instance = getInstance(state);
                 instance->getAccelerometerValues(param1, param2);
@@ -1395,6 +1624,44 @@ int lua_Game_pause(lua_State* state)
     return 0;
 }
 
+int lua_Game_recognizeGesture(lua_State* state)
+{
+    // Get the number of parameters.
+    int paramCount = lua_gettop(state);
+
+    // Attempt to match the parameters to a valid binding.
+    switch (paramCount)
+    {
+        case 2:
+        {
+            if ((lua_type(state, 1) == LUA_TUSERDATA) &&
+                (lua_type(state, 2) == LUA_TSTRING || lua_type(state, 2) == LUA_TNIL))
+            {
+                // Get parameter 1 off the stack.
+                Gesture::GestureEvent param1 = (Gesture::GestureEvent)lua_enumFromString_GestureGestureEvent(luaL_checkstring(state, 2));
+
+                Game* instance = getInstance(state);
+                instance->recognizeGesture(param1);
+                
+                return 0;
+            }
+            else
+            {
+                lua_pushstring(state, "lua_Game_recognizeGesture - Failed to match the given parameters to a valid function signature.");
+                lua_error(state);
+            }
+            break;
+        }
+        default:
+        {
+            lua_pushstring(state, "Invalid number of parameters (expected 2).");
+            lua_error(state);
+            break;
+        }
+    }
+    return 0;
+}
+
 int lua_Game_resume(lua_State* state)
 {
     // Get the number of parameters.
@@ -1484,7 +1751,7 @@ int lua_Game_schedule(lua_State* state)
                 float param1 = (float)luaL_checknumber(state, 2);
 
                 // Get parameter 2 off the stack.
-                const char* param2 = ScriptUtil::getString(3, false);
+                ScriptUtil::LuaArray<const char> param2 = ScriptUtil::getString(3, false);
 
                 Game* instance = getInstance(state);
                 instance->schedule(param1, param2);
@@ -1636,7 +1903,7 @@ int lua_Game_setViewport(lua_State* state)
                 (lua_type(state, 2) == LUA_TUSERDATA || lua_type(state, 2) == LUA_TNIL))
             {
                 // Get parameter 1 off the stack.
-                Rectangle* param1 = ScriptUtil::getObjectPointer<Rectangle>(2, "Rectangle", true);
+                ScriptUtil::LuaArray<Rectangle> param1 = ScriptUtil::getObjectPointer<Rectangle>(2, "Rectangle", true);
 
                 Game* instance = getInstance(state);
                 instance->setViewport(*param1);
