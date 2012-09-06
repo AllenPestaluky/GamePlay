@@ -75,10 +75,10 @@ Mesh* Mesh::createQuad(float x, float y, float width, float height)
 
     float vertices[] =
     {
-        x, y2, 0,   0, 0, 1,    0, 0,
-        x, y, 0,    0, 0, 1,    0, 1,
-        x2, y2, 0,  0, 0, 1,    1, 0,
-        x2, y, 0,   0, 0, 1,    1, 1
+        x, y2, 0,   0, 0, 1,    0, 1,
+        x, y, 0,    0, 0, 1,    0, 0,
+        x2, y2, 0,  0, 0, 1,    1, 1,
+        x2, y, 0,   0, 0, 1,    1, 0
     };
 
     VertexFormat::Element elements[] =
@@ -109,10 +109,10 @@ Mesh* Mesh::createQuadFullscreen()
 
     float vertices[] =
     {
-        x, y2,   0, 0,
-        x, y,    0, 1,
-        x2, y2,  1, 0,
-        x2, y,   1, 1
+        x, y2,   0, 1,
+        x, y,    0, 0,
+        x2, y2,  1, 1,
+        x2, y,   1, 0
     };
 
     VertexFormat::Element elements[] =
