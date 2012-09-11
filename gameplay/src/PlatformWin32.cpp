@@ -763,9 +763,9 @@ Platform* Platform::create(Game* game, void* attachToWindow)
             DEVMODE dm;
             memset(&dm, 0, sizeof(dm));
             dm.dmSize= sizeof(dm);
-            dm.dmPelsWidth	= __width;
-            dm.dmPelsHeight	= __height;
-            dm.dmBitsPerPel	= 32;
+            dm.dmPelsWidth    = __width;
+            dm.dmPelsHeight    = __height;
+            dm.dmBitsPerPel    = 32;
             dm.dmFields = DM_BITSPERPEL | DM_PELSWIDTH | DM_PELSHEIGHT;
 
             // Try to set selected mode and get results. NOTE: CDS_FULLSCREEN gets rid of start bar.
@@ -849,7 +849,6 @@ error:
 int Platform::enterMessagePump()
 {
     GP_ASSERT(_game);
-    int rc = 0;
 
     // Get the initial time.
     LARGE_INTEGER tps;
@@ -1024,9 +1023,22 @@ void Platform::displayKeyboard(bool display)
     // Do nothing.
 }
 
-void Platform::recognizeGesture(Gesture::GestureEvent evt)
+bool Platform::isGestureSupported(Gesture::GestureEvent evt)
 {
-    // Do nothing
+    return false;
+}
+
+void Platform::registerGesture(Gesture::GestureEvent evt)
+{
+}
+
+void Platform::unregisterGesture(Gesture::GestureEvent evt)
+{
+}
+    
+bool Platform::isGestureRegistered(Gesture::GestureEvent evt)
+{
+    return false;
 }
 
 unsigned int Platform::getGamepadsConnected()

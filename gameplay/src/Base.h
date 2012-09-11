@@ -24,6 +24,7 @@
 #include <algorithm>
 #include <limits>
 #include <functional>
+#include <bitset>
 
 // Bring common functions from C into global namespace
 using std::memcpy;
@@ -200,7 +201,7 @@ using std::va_list;
         #define USE_NEON
     #endif
 #elif __ANDROID__
-	#include <EGL/egl.h>
+    #include <EGL/egl.h>
     #include <GLES2/gl2.h>
     #include <GLES2/gl2ext.h>
     extern PFNGLBINDVERTEXARRAYOESPROC glBindVertexArray;
